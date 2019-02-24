@@ -2,7 +2,8 @@
 # Spring 2019
 # Basically copy/pasted entirely from: http://www.praatscriptingtutorial.com/loopingThroughFiles
 
-# Save the files in the wrong folder, but whatever...
+# First file-picker menu is for input folder
+# Second file-picker menu is for output folder
 
 clearinfo
 
