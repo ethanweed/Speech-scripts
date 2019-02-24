@@ -21,6 +21,8 @@ maxvol = ''.join(maxvol)
 maxvol = maxvol.split()
 maxvol = maxvol[4]
 maxvol = float(maxvol)
+
+# reduce 0 to e.g. -5 or less if the output files are getting clipped
 gain_adjust = str(0-maxvol)
 
 
