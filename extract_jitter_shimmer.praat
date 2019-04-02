@@ -53,14 +53,16 @@ for fileNum from 1 to numFiles
 	voiceReport$ = Voice report: 0, 0, 75, 500, 1.3, 1.6, 0.03, 0.45
 	jitter = extractNumber (voiceReport$, "Jitter (local): ")
 	shimmer = extractNumber (voiceReport$, "Shimmer (local): ")
+	jitter$ = string$ (jitter)
+	shimmer$ = string$ (shimmer)
 
 	
 	selectObject(table)
 	Append row
 	current_row = Get number of rows
 	Set string value:  current_row, "file", wavFile$
-	Set string value:  current_row, "jitter(local)", jitter
-	Set numeric value: current_row, "shimmer(local)", shimmer 
+	Set string value:  current_row, "jitter(local)", jitter$
+	Set string value: current_row, "shimmer(local)", shimmer$
 	
 
 	# Remove newly opened objects for cleanup
@@ -72,4 +74,3 @@ endfor
 
 selectObject(table)
 Save to comma-separated file: outDir$+ "/" + "voice_report.csv"
-
