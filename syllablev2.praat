@@ -8,6 +8,9 @@
 #                                                      For clean and filtered: 4)
 
 
+# ASD = average syllable rate including pauses
+
+
 form Counting Syllables in Sound Utterances
    real Silence_threshold_(dB) -25
    real Minimum_dip_between_peaks_(dB) 2

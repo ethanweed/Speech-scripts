@@ -1,18 +1,34 @@
-%%
+fi%%
 % Pipeline for feature extraction
 %%
-% remember to remove
+% NOTE: At least for me (using COVAREP 1.4.2), it is necessary to remove the file:
+% covarerp/....../external/backcompatability_2015/audioread.m 
+%from Matlab path. Without doing this, the script crashes with the error
+%message: 
+% Warning: An error occurred while analysing FILENAME: Undefined function 'wavread'
+% for input arguments of type 'char'.
+% 
+% Error in audioread (line 3)
+%     [y,Fs] = wavread(filename);
+% 
+% Error in COVAREP_feature_extraction (line 104)
+%         [x,fs]=audioread([in_dir filesep basename '.wav']);
+% 
+% Error in LiveEditorEvaluationHelperESectionEval (line 10)
+% COVAREP_feature_extraction(in_dir,sample_rate);
+% 
+% Error in matlab.internal.editor.evaluateCode 
 %
-% covarerp/....../external/backcompatability_2015/audioread.m from the path
-%
-in_dir = '/Users/ethan/Desktop/covarep_test_deleteme/soundfiles/';
+% in_dir = 'path/to/soundfiles/';
+in_dir = '/Users/ethan/Desktop/deleteme/'
 sample_rate = 0.01;
 COVAREP_feature_extraction(in_dir,sample_rate);
 
 %%
 
 
-cd /Users/ethan/Desktop/covarep_test_deleteme/matfiles
+in_dir = '/Users/ethan/Desktop/deleteme/'
+cd(in_dir)
 
 % make a struct with all the ".mat" files in the folder
 files = dir('*.mat');
@@ -42,7 +58,7 @@ clear all
 close all
 
 
-cd '/Users/ethan/Desktop/eigsti_project/resampled_sound_files/'
+cd '/path/to/Desktop/eigsti_project/resampled_sound_files/'
 
 
 frameSize = 30; % size of the frames (default = 30)
