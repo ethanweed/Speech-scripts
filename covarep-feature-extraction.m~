@@ -29,6 +29,10 @@ sample_rate = 0.01;
 COVAREP_feature_extraction(in_dir,sample_rate);
 
 
+in_dir = '/Users/ethan/Desktop/deleteme/'
+cd(in_dir)
+
+
 
 % make a struct with all the ".mat" files in the folder
 files = dir('*.mat');
