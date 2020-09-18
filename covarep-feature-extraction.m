@@ -17,7 +17,9 @@
 %
 % NOTE 2: wavfiles should be resampled to 16kHz if necessary
 % This can be done with ffmpeg using shell script "resample_sound_files"
-% from this repo. 
+% from this repo. ffmpeg can be downloaded here:
+%
+% https://ffmpeg.org
 %
 %
 % NOTE 3: At least for me (using COVAREP 1.4.2), it is necessary to remove the file:
