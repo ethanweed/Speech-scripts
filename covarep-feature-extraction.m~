@@ -1,10 +1,5 @@
-
+%%
 % Pipeline for feature extraction with COVAREP
-% Ethan Weed
-%
-%%%%%%%%%%%%%%%%%%%%%%%
-% Notes
-%%%%%%%%%%%%%%%%%%%%%%%
 %
 %
 % NOTE 1: This script is just a convenience script that calls functions
@@ -22,7 +17,7 @@
 %
 % NOTE 3: At least for me (using COVAREP 1.4.2), it is necessary to remove the file:
 % covarerp/....../external/backcompatability_2015/audioread.m 
-% from Matlab path. Without doing this, the script crashes with the folowing error
+% from Matlab path. Without doing this, the script crashes with the folowerror
 % message: 
 %
 % Warning: An error occurred while analysing FILENAME: Undefined function 'wavread'
@@ -40,9 +35,8 @@
 % Error in matlab.internal.editor.evaluateCode 
 %
 %
-%%%%%%%%%%%%%%%%%%%%%%%
-% BEGIN SCRIPT
-%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
 %
 % edit in_dir for the correct path to the resampled sound files
 in_dir = 'path/to/soundfiles/';
