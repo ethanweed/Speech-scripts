@@ -1,7 +1,12 @@
-fi%%
-% Pipeline for feature extraction
 %%
-% NOTE: At least for me (using COVAREP 1.4.2), it is necessary to remove the file:
+% Pipeline for feature extraction with COVAREP
+%
+% NOTE 1: wavfiles should be resampled to 16kHz if necessary
+% This can be done with ffmpeg using shell script "resample_sound_files"
+% from this repo. 
+%
+%
+% NOTE 2: At least for me (using COVAREP 1.4.2), it is necessary to remove the file:
 % covarerp/....../external/backcompatability_2015/audioread.m 
 %from Matlab path. Without doing this, the script crashes with the error
 %message: 
@@ -19,20 +24,26 @@ fi%%
 % 
 % Error in matlab.internal.editor.evaluateCode 
 %
-% in_dir = 'path/to/soundfiles/';
-in_dir = '/Users/ethan/Desktop/deleteme/'
+%
+%
+%
+%
+% edit in_dir for the correct path to the resampled sound files
+in_dir = 'path/to/soundfiles/';
+
 cd(in_dir)
-mkdir 'matfiles'
-mkdir 'csvfiles'
+
+mkdir 'acoustic_features_matfiles'
+mkdir 'acoustic_features_csvfiles'
+mkdir 'formant_peaks'
+mkdir 'wav_files'
 
 sample_rate = 0.01;
 COVAREP_feature_extraction(in_dir,sample_rate);
 
 
-
 % make a struct with all the ".mat" files in the folder
 files = dir('*.mat');
-
 
 
 for i = 1:length(files)
@@ -43,25 +54,35 @@ for i = 1:length(files)
     str = filename(1:end-10);
     sname = strcat(str, '.csv');
     
+    % add headers to the data
     dataset = load(filename);
     data = dataset.features;
+    data = [dataset.names; num2cell(data)];
+    
+    % Convert cell to a table and use first row as variable names
+    data_table = cell2table(data(2:end,:),'VariableNames',data(1,:));
+ 
+    % Write the table to a CSV file
+    writetable(data_table,sname);
     
    
-    
-    csvwrite(sname,data);
 end    
 
-movefile '*.mat' matfiles
-movefile '*.csv' csvfiles
 
-disp('All done!');
-
-%%
-clear all
-close all
+% clean up
+movefile '*.mat' acoustic_features_matfiles
+movefile '*.csv' acoustic_features_csvfiles
 
 
-cd '/path/to/Desktop/eigsti_project/resampled_sound_files/'
+disp('Done with acoustic features');
+
+
+% extract formant peaks
+
+% clean up workspace
+clearvars -except in_dir
+
+cd(in_dir)
 
 
 frameSize = 30; % size of the frames (default = 30)
@@ -72,11 +93,10 @@ frameShift = 10; % duration between two successive frames. (default = 10)
 %  the first 5 formants.
 %  t_analysis      : [s] vector containing the analysis time instants.
 
+headers = {'F1', 'F2', 'F3', 'F4', 'F5'};
 
-
-% make a struct with all the ".mat" files in the folder
+% make a struct with all the ".wav" files in the folder
 files = dir('*.wav');
-
 
 
 for i = 1:length(files)
@@ -91,11 +111,20 @@ for i = 1:length(files)
     [Y, FS]=audioread(filename);
     [formantPeaks,t_analysis]=formant_CGDZP(Y,FS,frameSize,frameShift);
    
-    data = formantPeaks
-    csvwrite(sname,data);
+    % add headers to output file
+    data = [headers; num2cell(formantPeaks)];
+    data_table = cell2table(data(2:end,:),'VariableNames',data(1,:));
+    
+    % Write the table to a CSV file
+    writetable(data_table,sname);
     
     disp(strcat('done with..... ', num2str(i), '/ ', num2str(length(files))))
 end    
+
+% clean up
+movefile '*.csv' formant_peaks
+movefile '*.wav' wav_files
+
 
 disp('All done!');
 
