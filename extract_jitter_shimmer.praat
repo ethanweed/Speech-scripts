@@ -1,3 +1,8 @@
+# Extract jitter and shimmer
+# Ethan Weed
+# Most of this script adapted from scripts on https://www.praatscriptingtutorial.com/
+
+
 # Create a Table with no rows
 table = Create Table with column names: 
 ..."table", 0, "file jitter(local) shimmer(local)"
