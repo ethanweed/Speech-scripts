@@ -56,11 +56,11 @@ for fileNum from 1 to numFiles
 	appendInfoLine: "Splitting file.... " + fileRoot$	
 	# select the sound and extract the desired portion
 	selectObject: wav
-	partWav = Extract part: 180, 300, "rectangular", 1, "no"
+	partWav = Extract part: startTime, endTime, "rectangular", 1, "no"
 	
 	# select the TextGrid and extract the desired portion
 	selectObject: text
-	partText = Extract part: 180, 300, "no"
+	partText = Extract part: startTime, endTime, "no"
 	
 	# save the extracted sound with the old name
 	# to the new folder
